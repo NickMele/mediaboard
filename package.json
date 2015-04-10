@@ -1,0 +1,19 @@
+{
+  "name": "mediaboard",
+  "version": "0.0.0",
+  "description": "Media dashboard for home theaters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/NickMele/mediaboard.git"
+  },
+  "author": "Nick Mele",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NickMele/mediaboard/issues"
+  },
+  "homepage": "https://github.com/NickMele/mediaboard"
+}
