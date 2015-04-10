@@ -1,8 +1,8 @@
 // Dependencies
-var gulp   = require('gulp');
-var $      = require('gulp-load-plugins')();
-var rimraf = require('rimraf');
-var argv   = require('yargs').argv;
+var gulp      = require('gulp');
+var $         = require('gulp-load-plugins')();
+var rimraf    = require('rimraf');
+var argv      = require('yargs').argv;
 
 // Internals used throughout build process
 var internals = {
@@ -27,7 +27,7 @@ gulp.task('watch', ['build'], function() {
 // Run local webserver
 gulp.task('server', ['watch'], function() {
   $.connect.server({
-    root: ['build'],
+    root: ['build', './'],
     port: internals.port
   });
 });
@@ -36,7 +36,7 @@ gulp.task('server', ['watch'], function() {
 // Inject files into html
 gulp.task('inject', ['build-js', 'build-css'], function() {
   var target = gulp.src(internals.html);
-  var sources = gulp.src(internals.stylesheets.concat(internals.javascript), { read: false });
+  var sources = gulp.src(internals.dest + '/**/*.{js,css}', { read: false });
   return target
       .pipe($.inject(sources))
       .pipe(gulp.dest(internals.dest));
@@ -44,10 +44,13 @@ gulp.task('inject', ['build-js', 'build-css'], function() {
 
 // Compile stylesheets
 gulp.task('build-css', ['clean'], function() {
+  var nib = require('nib');
   return gulp.src(internals.stylesheets)
-      .pipe($.stylus())
+      .pipe($.stylus({
+        use: [nib()]
+      }))
       .pipe($.concatCss('app.css'))
-      .pipe(gulp.dest(internals.dest + '/stylsheets'));
+      .pipe(gulp.dest(internals.dest + '/stylesheets'));
 });
 
 // Compile javascript
