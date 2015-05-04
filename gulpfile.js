@@ -13,6 +13,9 @@ var internals = {
   html        : ['./src/**/*.html']
 };
 
+// List tasks
+$.taskList(gulp);
+
 // Default task
 gulp.task('default', ['build']);
 
